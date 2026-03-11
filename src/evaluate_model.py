@@ -35,6 +35,25 @@ def print_classification_report(model, X_test, y_test):
     print("─" * 50)
     print(classification_report(y_test, y_pred,
           target_names=["Not Survived", "Survived"]))
+def save_classification_report(model, X_test, y_test, output_dir: str = "outputs"):
+    """Save classification report as PNG image."""
+    os.makedirs(output_dir, exist_ok=True)
+    y_pred = model.predict(X_test)
+    report = classification_report(y_test, y_pred, 
+                                   target_names=["Not Survived", "Survived"])
+    
+    fig, ax = plt.subplots(figsize=(8, 4))
+    ax.axis("off")
+    ax.text(0.01, 0.99, report, transform=ax.transAxes,
+            fontsize=12, verticalalignment="top", fontfamily="monospace")
+    ax.set_title("Classification Report", fontsize=14, fontweight="bold", pad=20)
+    plt.tight_layout()
+    
+    path = os.path.join(output_dir, "classification_report.png")
+    plt.savefig(path, dpi=150, bbox_inches="tight")
+    plt.close()
+    print(f"💾 Classification report saved → {path}")
+    return path    
 
 
 # ─────────────────────────────────────────────
@@ -103,6 +122,7 @@ def evaluate_pipeline(model_path: str, data_path: str, output_dir: str = "output
     print_classification_report(model, X_test, y_test)
     plot_confusion_matrix(model, X_test, y_test, output_dir)
     plot_roc_curve(model, X_test, y_test, output_dir)
+    save_classification_report(model, X_test, y_test, output_dir)
 
     print(f"\n✅ Evaluation complete! All plots saved in '{output_dir}/'")
 
