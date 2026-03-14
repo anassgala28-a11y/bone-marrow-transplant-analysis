@@ -88,3 +88,49 @@ if __name__ == "__main__":
     X_train, X_test, y_train, y_test = preprocess_pipeline(path)
     print(f"\nX_train shape: {X_train.shape}")
     print(f"X_test  shape: {X_test.shape}")
+
+def optimize_memory(df: pd.DataFrame, verbose: bool = True) -> pd.DataFrame:
+    """
+    Reduce DataFrame memory footprint by downcasting numeric types
+    and converting low-cardinality object columns to category dtype.
+
+    Conversions applied
+    -------------------
+    float64  →  float32
+    int64    →  int32
+    object with < 50% unique values  →  category
+
+    Parameters
+    ----------
+    df      : input DataFrame
+    verbose : if True, print memory before/after
+
+    Returns
+    -------
+    pd.DataFrame  (optimised copy)
+    """
+    df = df.copy()
+    before_mb = df.memory_usage(deep=True).sum() / 1024 ** 2
+
+    for col in df.columns:
+        col_type = df[col].dtype
+
+        if col_type == "float64":
+            df[col] = df[col].astype("float32")
+
+        elif col_type == "int64":
+            df[col] = df[col].astype("int32")
+
+        elif col_type == object:
+            n_unique = df[col].nunique(dropna=False)
+            if n_unique / max(len(df), 1) < 0.50:
+                df[col] = df[col].astype("category")
+
+    after_mb = df.memory_usage(deep=True).sum() / 1024 ** 2
+
+    if verbose:
+        pct = 100 * (before_mb - after_mb) / before_mb if before_mb > 0 else 0
+        print(f"Memory reduced from {before_mb:.2f} MB to {after_mb:.2f} MB "
+              f"({pct:.1f}% saved)")
+
+    return df
