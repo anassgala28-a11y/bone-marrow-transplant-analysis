@@ -77,7 +77,7 @@ bone-marrow-transplant-analysis/
 │   └──    # Automated tests
 │
 ├── worklows/
-│   └──                  # GitHub Actions CI/CD
+│   └──ci.yml                  # GitHub Actions CI/CD
 │
 ├── requirements.txt
 ├── Dockerfile
@@ -248,21 +248,8 @@ Based on global importance, the most predictive features include:
 
 ## Memory Optimization
 
-As required, `data_processing.py` includes a dedicated `optimize_memory(df)` function:
-
-```python
-def optimize_memory(df):
-    """
-    Reduces DataFrame memory usage by downcasting numeric types:
-    - float64 → float32
-    - int64   → int32
-    Returns the optimized DataFrame and prints memory improvement.
-    """
-```
-
 Memory improvement is demonstrated in `notebooks/eda.ipynb` with before/after comparison.
 
----
 
 ## Interface
 
