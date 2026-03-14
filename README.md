@@ -370,9 +370,11 @@ Prompt engineering revealed the importance of **context-rich, constraint-focused
 
 | Member | Responsibility |
 |---|---|
-| Anass| `data_processing.py`, `train_model.py`, `evaluate_model.py` |
-| Abdelilah | SHAP integration (`evaluate_model.py` SHAP section) |
-| abderahman | Interface development, EDA notebook, testing, CI/CD |
+| Anass| src , readme  |
+| Abdelilah | SHAP integration , tests|
+| abderahman | Interface development |
+| manal | data analysis | 
+| hafssa | optimisation | 
 
 Task tracking managed via **Trello** (To Do → In Progress → Review → Done).
 
