@@ -250,8 +250,8 @@ Based on global importance, the most predictive features include:
 
 Memory optimization is demonstrated directly in notebooks/eda.ipynb. The notebook includes an optimize_memory(df) function that reduces DataFrame memory usage by downcasting numeric types:
 
-.  float64 → float32
-.  int64 → int32
+- float64 → float32
+-  int64 → int32
 
 The notebook clearly shows the before and after memory comparison, demonstrating the reduction achieved on the bone marrow dataset.
 
