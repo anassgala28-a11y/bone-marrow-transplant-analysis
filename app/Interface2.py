@@ -26,8 +26,7 @@ FEATURES = [
     "Txpostrelapse","Diseasegroup","HLAmatch","HLAmismatch","Antigen",
     "Alel","HLAgrI","Recipientage","Recipientage10","Recipientageint",
     "Relapse","aGvHDIIIIV","extcGvHD","CD34kgx10d6","CD3dCD34",
-    "CD3dkgx10d8","Rbodymass","ANCrecovery","PLTrecovery",
-    "time_to_aGvHD_III_IV","survival_time"
+    "CD3dkgx10d8","Rbodymass"
 ]
 
 @st.cache_resource
@@ -347,9 +346,10 @@ _NAV_HTML = f"""
     "l-met":  "sec-met"
   }};
   function go(secId) {{
-    // scroll in parent frame
-    var p = window.parent || window.top;
-    p.postMessage({{type:"bmt-scroll",id:secId}}, "*");
+    var targets = [window.parent, window.top];
+    targets.forEach(function(p) {{
+      try {{ p.postMessage({{type:"bmt-scroll",id:secId}}, "*"); }} catch(e) {{}}
+    }});
   }}
   // listen for scroll-back events from parent
   window.addEventListener("message", function(e) {{
@@ -466,8 +466,6 @@ with st.form("bmt_form"):
         Rabo = st.selectbox("Blood Type (ABO)",    ["O","A","B","AB"],         key="Rabo")
         Rrh  = st.selectbox("Rh Factor",           ["Positive","Negative"],    key="Rrh")
         Rcmv = st.selectbox("CMV Status",          ["Negative","Positive"],    key="Rcmv")
-        Stime= st.number_input("Follow-up Time (days)", 0.0, 3000.0, 365.0, 1.0, key="Stime",
-                               help="Days since transplant / expected follow-up period")
         st.markdown('</div>', unsafe_allow_html=True)
 
     with col_d:
@@ -506,13 +504,9 @@ with st.form("bmt_form"):
             Ccd3r = st.number_input("CD3/CD34 ratio",       0.0, 500.0,  5.0,  0.1,  key="Ccd3r")
             Ccd3  = st.number_input("CD3+ (x10^8/kg)",     0.0, 100.0,  3.0,  0.01, key="Ccd3")
         with l2:
-            Canc  = st.number_input("ANC Recovery (days)",  0.0, 100.0, 15.0,  0.5,  key="Canc")
-            Cplt  = st.number_input("Platelet Recovery",    0.0, 200.0, 25.0,  0.5,  key="Cplt")
             Cagv  = st.selectbox("Acute GvHD III-IV",      ["No","Yes"],           key="Cagv")
         with l3:
             Ccgv  = st.selectbox("Extensive cGvHD",        ["No","Yes"],           key="Ccgv")
-            Ctag  = st.number_input("Time to aGvHD (days; 1e6=never)",
-                                    0.0, 1_000_000.0, 1_000_000.0, 1.0,           key="Ctag")
 
     st.markdown("<br>", unsafe_allow_html=True)
     submitted = st.form_submit_button("Compute Prediction", use_container_width=True)
@@ -555,10 +549,6 @@ if submitted:
         "CD3dCD34":             float(Ccd3r),
         "CD3dkgx10d8":          float(Ccd3),
         "Rbodymass":            float(Rb),
-        "ANCrecovery":          float(Canc),
-        "PLTrecovery":          float(Cplt),
-        "time_to_aGvHD_III_IV": float(Ctag),
-        "survival_time":        float(Stime),
     }
     # Build DataFrame with EXACT feature order
     pdf = pd.DataFrame([raw])[FEATURES]
