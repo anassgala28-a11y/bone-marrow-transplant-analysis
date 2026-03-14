@@ -248,7 +248,12 @@ Based on global importance, the most predictive features include:
 
 ## Memory Optimization
 
-Memory improvement is demonstrated in `notebooks/eda.ipynb` with before/after comparison.
+Memory optimization is demonstrated directly in notebooks/eda.ipynb. The notebook includes an optimize_memory(df) function that reduces DataFrame memory usage by downcasting numeric types:
+
+.  float64 → float32
+.  int64 → int32
+
+The notebook clearly shows the before and after memory comparison, demonstrating the reduction achieved on the bone marrow dataset.
 
 
 ## Interface
@@ -365,9 +370,9 @@ Prompt engineering revealed the importance of **context-rich, constraint-focused
 
 | Member | Responsibility |
 |---|---|
-| Manal | `data_processing.py`, `train_model.py`, `evaluate_model.py` |
+| Anass| `data_processing.py`, `train_model.py`, `evaluate_model.py` |
 | Abdelilah | SHAP integration (`evaluate_model.py` SHAP section) |
-| *(Other members)* | Interface development, EDA notebook, testing, CI/CD |
+| abderahman | Interface development, EDA notebook, testing, CI/CD |
 
 Task tracking managed via **Trello** (To Do → In Progress → Review → Done).
 
