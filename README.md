@@ -76,9 +76,8 @@ bone-marrow-transplant-analysis/
 ├── tests/
 │   └── test_data_processing.py    # Automated tests
 │
-├── .github/
-│   └── workflows/
-│       └── ci.yml                 # GitHub Actions CI/CD
+├── worklows/
+│   └── ci.yml                 # GitHub Actions CI/CD
 │
 ├── requirements.txt
 ├── Dockerfile
