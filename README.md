@@ -74,10 +74,10 @@ bone-marrow-transplant-analysis/
 ├── outputs/                       # Evaluation plots
 │
 ├── tests/
-│   └── test_data_processing.py    # Automated tests
+│   └──    # Automated tests
 │
 ├── worklows/
-│   └── ci.yml                 # GitHub Actions CI/CD
+│   └──                  # GitHub Actions CI/CD
 │
 ├── requirements.txt
 ├── Dockerfile
