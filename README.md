@@ -248,14 +248,25 @@ Based on global importance, the most predictive features include:
 
 ## Memory Optimization
 
-Memory optimization is demonstrated directly in notebooks/eda.ipynb. The notebook includes an optimize_memory(df) function that reduces DataFrame memory usage by downcasting numeric types:
+Memory optimization is demonstrated directly in notebooks/eda.ipynb by optimize_memory in data_processing. The notebook and scr/data_processing includes an optimize_memory(df) function that reduces DataFrame memory usage by downcasting numeric types:
 
 - float64 → float32
 -  int64 → int32
 
 The notebook clearly shows the before and after memory comparison, demonstrating the reduction achieved on the bone marrow dataset.
 
+##  Automated Testing
 
+To ensure the reliability of the data processing and machine learning pipelines, unit tests have been implemented using the **`pytest`** framework. 
+
+The current test suite (`tests/`) validates three critical components:
+1. **Missing Values Handling:** Ensures the `handle_missing_values` function correctly processes NaN/None values.
+2. **Memory Optimization:** Verifies that `optimize_memory(df)` successfully reduces the dataset's memory footprint.
+3. **Prediction Pipeline:** Uses mocking to safely simulate and validate the model loading and prediction process.
+
+**To run the tests:**
+```bash
+pytest tests/
 ## Interface
 
 Built with **Streamlit**, the interface provides:
