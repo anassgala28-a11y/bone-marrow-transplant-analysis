@@ -314,22 +314,56 @@ streamlit run app/interface.py
 GitHub Actions workflow is configured at `.github/workflows/ci.yml`:
 
 ```yaml
-name: CI Pipeline
-on: [push, pull_request]
+name: CI
+
+on:
+  push:
+    branches: [develop]
+  pull_request:
+    branches: [develop]
+  workflow_dispatch:
+
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: "3.10"
+          cache: "pip"
+
       - name: Install dependencies
         run: pip install -r requirements.txt
+
+      - name: Install test tools
+        run: pip install pytest
+
       - name: Run tests
         run: pytest tests/
+```yaml```
+### CD — Continuous Deployment
+
+GitHub Actions workflow is configured at `.github/workflows/cd.yml`:
+```yaml
+name: CD
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build Docker image
+        run: docker build -t bmt-app .
 ```
+
+Triggered automatically on every push to `main` or manually via
+`workflow_dispatch`. Builds a Docker image from the `Dockerfile`
+to ensure the application is always ready for deployment.
 
 ### Automated Tests (`tests/test_data_processing.py`)
 
