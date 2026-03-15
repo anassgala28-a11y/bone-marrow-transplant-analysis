@@ -53,38 +53,47 @@ This application assists physicians in predicting the **success rate of bone mar
 
 ```
 bone-marrow-transplant-analysis/
-│
-├── data/
-│   └── bone-marrow.arff
-│
-├── notebooks/
-│   └── eda.ipynb                  # Exploratory data analysis
-│
-├── src/
-│   ├── data_processing.py         # Preprocessing pipeline
-│   ├── train_model.py             # Model training & selection
-│   └── evaluate_model.py          # Evaluation plots & metrics
+├── .github/
+│   └── workflows/
+│       ├── cd.yml
+│       └── ci.yml
 │
 ├── app/
-│   └── Interface2.py              # Streamlit web interface
+│   └── interface.py
+│
+├── data/
+│   ├── bone-marrow-final.csv
+│   └── bone-marrow.arff
 │
 ├── models/
-│   └── xgboost.pkl                # Best saved model
+│   └── xgboost.pkl
 │
-├── outputs/                       # Evaluation plots
+├── notebooks/
+│   └── notebook.ipynb
+│
+├── outputs/
+│   ├── shap/
+│   ├── classification_report.png
+│   ├── confusion_matrix.png
+│   └── roc_curve.png
+│
+├── shap/
+│   └── shap_explainability.py
+│
+├── src/
+│   ├── data_processing.py
+│   ├── evaluate_model.py
+│   └── train_model.py
 │
 ├── tests/
-│   ├──test_data_processing.py
-│   ├──test_preprocessing_full
-│   └──test_train_model    # Automated tests
+│   ├── test_data_processing.py
+│   ├── test_preprocessing_full
+│   └── test_train_model
 │
-├──.github/worklows/
-│   ├──cd.yml
-│   └──ci.yml                  # GitHub Actions CI/CD
-│
-├── requirements.txt
+├── .gitignore
 ├── Dockerfile
-└── README.md
+├── README.md
+└── requirements.txt
 ```
 
 ---
