@@ -263,7 +263,20 @@ The current test suite (`tests/`) validates three critical components:
 1. **Missing Values Handling:** Ensures the `handle_missing_values` function correctly processes NaN/None values.
 2. **Memory Optimization:** Verifies that `optimize_memory(df)` successfully reduces the dataset's memory footprint.
 3. **Prediction Pipeline:** Uses mocking to safely simulate and validate the model loading and prediction process.
+Robustness is key in medical data analysis. I implemented a comprehensive unit testing suite using **`pytest`** to validate core functionalities without relying on the full dataset.
 
+**Key Test Coverage:**
+* **Data Processing:** Asserts that missing values are correctly handled and that `optimize_memory` successfully reduces the dataset's memory footprint in megabytes.
+* **Machine Learning Pipeline (`train_model.py`):**
+  * **Model Initialization:** Ensures Random Forest, XGBoost, and LightGBM are correctly instantiated with the proper sklearn-compatible interfaces.
+  * **Evaluation Metrics:** Validates the accurate calculation of Accuracy, Precision, Recall, F1-Score, and ROC-AUC (ensuring outputs are bounded and rounded).
+  * **Model Selection:** Verifies that the training pipeline automatically identifies and selects the best-performing model based on the maximum ROC-AUC score.
+  * **Serialization:** Ensures the winning model is safely exported as a `.pkl` file (e.g., `xgboost.pkl`) and can be seamlessly reloaded for future predictions.
+
+**How to run the tests locally:**
+```bash
+# Navigate to the project directory and run:
+pytest tests/ -v
 **To run the tests:**
 ```bash
 pytest tests/
