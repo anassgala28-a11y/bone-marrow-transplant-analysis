@@ -1,0 +1,28 @@
+FROM python:3.10-slim
+
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY src/ ./src/
+COPY app/ ./app/
+
+EXPOSE 8501
+
+CMD ["streamlit", "run", "app/app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+```
+
+5. Commit it
+
+---
+
+**Also create `.dockerignore`** at the root (same way):
+```
+.venv/
+__pycache__/
+*.pyc
+.git/
+.env
+*.ipynb_checkpoints
+data/
