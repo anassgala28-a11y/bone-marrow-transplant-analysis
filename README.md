@@ -153,7 +153,7 @@ This will:
 ### 2. Run the Application
 
 ```bash
-streamlit run app/Interface2.py
+streamlit run app/interface.py
 ```
 
 Open your browser at `http://localhost:8501`
@@ -168,7 +168,7 @@ pytest tests/
 
 ## Preliminary Data Analysis
 
-> Full analysis is documented in `notebooks/eda.ipynb`
+> Full analysis is documented in `notebooks/notebook.ipynb`
 
 ### Missing Values
 
