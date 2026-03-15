@@ -505,6 +505,7 @@ with st.form("bmt_form"):
             Ccd3  = st.number_input("CD3+ (x10^8/kg)",     0.0, 100.0,  3.0,  0.01, key="Ccd3")
         with l2:
             Cagv  = st.selectbox("Acute GvHD III-IV",      ["No","Yes"],           key="Cagv")
+            Canc  = st.number_input("ANC recovery (days)",  0, 200, 20, 1,         key="Canc")
         with l3:
             Ccgv  = st.selectbox("Extensive cGvHD",        ["No","Yes"],           key="Ccgv")
 
