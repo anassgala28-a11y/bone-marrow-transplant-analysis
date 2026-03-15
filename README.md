@@ -87,9 +87,7 @@ bone-marrow-transplant-analysis/
 │
 ├── tests/
 │   ├── test_data_processing.py
-│   ├── test_preprocessing_full
-│   └── test_train_model
-│
+│ 
 ├── .gitignore
 ├── Dockerfile
 ├── README.md
