@@ -304,7 +304,7 @@ Built with **Streamlit**, the interface provides:
 
 **Run:**
 ```bash
-streamlit run app/Interface2.py
+streamlit run app/interface.py
 ```
 
 ---
